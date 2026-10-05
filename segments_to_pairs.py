@@ -2,7 +2,7 @@
 # Author: Lissa Cruz-Saavedra
 # Date: 24-09-2026
 """
-segments_to_pairs.py  (step 5b, run by slurm/05_map_segments.sbatch)
+segments_to_pairs.py  (step 5b, run by slurm/05_map_segments.sh)
 
 Turns mapped segments into per-cell Hi-C contacts. Segments from the same
 original read pair (same read_id, same cell) that map uniquely are paired
