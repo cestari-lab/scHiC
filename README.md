@@ -46,10 +46,10 @@ mkdir -p logs
 | Step | Run | Output |
 |------|-----|--------|
 | 1. Whitelist | `python3 scripts/build_whitelist.py` | `chromap_whitelist.txt`, `barcode_translate.tsv` |
-| 2. Extract | `sbatch slurm/02_extract.sbatch` | `<sample>_segments.fastq.gz`, `<sample>_extract_stats.tsv` |
-| 3. Diagnose | `sbatch slurm/03_diagnose.sbatch` | `<sample>_diagnose.txt`, `.json` |
+| 2. Extract | `sbatch slurm/02_extract.sh` | `<sample>_segments.fastq.gz`, `<sample>_extract_stats.tsv` |
+| 3. Diagnose | `sbatch slurm/03_diagnose.sh` | `<sample>_diagnose.txt`, `.json` |
 | 4. Summarize | `python3 scripts/summarize_segments.py` | text report, `<sample>_segments_per_cell.tsv` |
-| 5. Map + contacts | `sbatch slurm/05_map_segments.sbatch` | BAMs, `<sample>.pairs.gz`, `per_cell_pairs/`, `<sample>_contacts_per_cell.tsv` |
+| 5. Map + contacts | `sbatch slurm/05_map_segments.sh` | BAMs, `<sample>.pairs.gz`, `per_cell_pairs/`, `<sample>_contacts_per_cell.tsv` |
 
 Steps 1 and 4 take seconds and can run on a login node:
 
@@ -95,7 +95,7 @@ Per read pair: junction found in R1 only, R2 only or both, whether both
 mates agree on the cell, and read pairs per cell.
 
 ### 5. Mapping and contacts
-`05_map_segments.sbatch` maps segments single-end with `bwa mem -C` (keeps
+`05_map_segments.sh` maps segments single-end with `bwa mem -C` (keeps
 the `CB:Z:` tag), keeps alignments with MAPQ ≥ `MIN_MAPQ` and drops
 unmapped, secondary and supplementary ones. It writes a coordinate-sorted
 BAM for IGV and QC, then runs `segments_to_pairs.py` on the unsorted BAM.
@@ -148,9 +148,9 @@ scHiC/
 │   ├── summarize_segments.py     step 4
 │   └── segments_to_pairs.py      step 5 (contacts)
 ├── slurm/
-│   ├── 02_extract.sbatch
-│   ├── 03_diagnose.sbatch
-│   └── 05_map_segments.sbatch
+│   ├── 02_extract.sh
+│   ├── 03_diagnose.sh
+│   └── 05_map_segments.sh
 └── tests/
     ├── make_test_data.py
     └── run_tests.sh
