@@ -1,0 +1,10 @@
+# Only needed if your cluster has no modules for these tools.
+# The Python scripts use the standard library only.
+name: schic
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - python>=3.8
+  - bwa
+  - samtools
